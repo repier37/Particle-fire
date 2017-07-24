@@ -1,4 +1,4 @@
-src/SDLTest.o: ../src/SDLTest.cpp /usr/include/SDL2/SDL.h \
+src/Screen.o: ../src/Screen.cpp ../src/Screen.h /usr/include/SDL2/SDL.h \
  /usr/include/SDL2/SDL_main.h /usr/include/SDL2/SDL_stdinc.h \
  /usr/include/SDL2/SDL_config.h /usr/include/SDL2/SDL_platform.h \
  /usr/include/SDL2/begin_code.h /usr/include/SDL2/close_code.h \
@@ -19,8 +19,9 @@ src/SDLTest.o: ../src/SDLTest.cpp /usr/include/SDL2/SDL.h \
  /usr/include/SDL2/SDL_loadso.h /usr/include/SDL2/SDL_log.h \
  /usr/include/SDL2/SDL_messagebox.h /usr/include/SDL2/SDL_power.h \
  /usr/include/SDL2/SDL_render.h /usr/include/SDL2/SDL_system.h \
- /usr/include/SDL2/SDL_timer.h /usr/include/SDL2/SDL_version.h \
- ../src/Screen.h ../src/Particle.h ../src/Swarm.h
+ /usr/include/SDL2/SDL_timer.h /usr/include/SDL2/SDL_version.h
+
+../src/Screen.h:
 
 /usr/include/SDL2/SDL.h:
 
@@ -107,9 +108,3 @@ src/SDLTest.o: ../src/SDLTest.cpp /usr/include/SDL2/SDL.h \
 /usr/include/SDL2/SDL_timer.h:
 
 /usr/include/SDL2/SDL_version.h:
-
-../src/Screen.h:
-
-../src/Particle.h:
-
-../src/Swarm.h:

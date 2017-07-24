@@ -5,15 +5,24 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../src/Particle\ Fire\ explosion.cpp \
-../src/SDLTest.cpp 
+../src/Particle.cpp \
+../src/SDLTest.cpp \
+../src/Screen.cpp \
+../src/Swarm.cpp 
 
 OBJS += \
 ./src/Particle\ Fire\ explosion.o \
-./src/SDLTest.o 
+./src/Particle.o \
+./src/SDLTest.o \
+./src/Screen.o \
+./src/Swarm.o 
 
 CPP_DEPS += \
 ./src/Particle\ Fire\ explosion.d \
-./src/SDLTest.d 
+./src/Particle.d \
+./src/SDLTest.d \
+./src/Screen.d \
+./src/Swarm.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
