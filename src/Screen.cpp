@@ -11,7 +11,8 @@ using namespace std;
 namespace pierre {
 
 Screen::Screen() :
-		m_window(NULL), m_renderer(NULL), m_texture(NULL), m_buffer(NULL), m_buffer2(NULL) {
+		m_window(NULL), m_renderer(NULL), m_texture(NULL), m_buffer(NULL), m_buffer2(
+				NULL) {
 }
 
 bool Screen::init() {
@@ -62,8 +63,8 @@ bool Screen::init() {
 
 	//clearing memory area of buffers
 
-	memset(m_buffer, 0, SCREEN_WIDTH*SCREEN_HEIGHT*sizeof(Uint32));
-	memset(m_buffer2, 0, SCREEN_WIDTH*SCREEN_HEIGHT*sizeof(Uint32));
+	memset(m_buffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+	memset(m_buffer2, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
 	for (int i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; i++) {
 		m_buffer[i] = 0x000000FF;
 	}
@@ -124,7 +125,7 @@ void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue) {
 }
 
 void Screen::boxBlur() {
-	Uint32* temp=m_buffer;
+	Uint32* temp = m_buffer;
 	m_buffer = m_buffer2;
 	m_buffer2 = temp;
 
@@ -139,32 +140,29 @@ void Screen::blurPixel(int x, int y) {
 	int red = 0;
 	int green = 0;
 	int blue = 0;
-	int count =0;
+	int count = 0;
 	for (int i = x - 1; i <= x + 1; i++) {
-		if (i<0||i>SCREEN_WIDTH-1){
+		if (i < 0 || i > SCREEN_WIDTH - 1) {
 			setPixel(x, y, 0, 0, 0);
 			return;
 		}
 		for (int j = y - 1; j <= y + 1; j++) {
-			if (j<0||j>SCREEN_HEIGHT-1){
-				setPixel(x, y, 0, 0, 0);
-						return;
-					}
-			red += (m_buffer2[j * SCREEN_WIDTH + i] & 0xff000000) >> 24;
-			green += (m_buffer2[j * SCREEN_WIDTH + i] & 0x00ff0000) >> 16;
-			blue += (m_buffer2[j * SCREEN_WIDTH + i] & 0x0000ff00) >> 8 ;
-			count ++;
+			if (i > 0 && i < SCREEN_WIDTH - 1 && j > 0
+					&& j < SCREEN_HEIGHT - 1) {
+				red += (m_buffer2[j * SCREEN_WIDTH + i] & 0xff000000) >> 24;
+				green += (m_buffer2[j * SCREEN_WIDTH + i] & 0x00ff0000) >> 16;
+				blue += (m_buffer2[j * SCREEN_WIDTH + i] & 0x0000ff00) >> 8;
+				count++;
+			}
 		}
 	}
-	setPixel(x, y, red/count, green/count, blue/count);
+	setPixel(x, y, red / count, green / count, blue / count);
 }
-
-
 
 void Screen::close() {
 	std::cout << "end of programm" << std::endl;
 	delete[] m_buffer;
-	delete [] m_buffer2;
+	delete[] m_buffer2;
 	SDL_DestroyTexture(m_texture);
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);
