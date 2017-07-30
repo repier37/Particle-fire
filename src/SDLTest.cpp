@@ -16,6 +16,7 @@ using namespace pierre;
 using namespace std;
 
 int main() {
+	int count = 0;
 	srand(time(NULL));
 	Screen screen;
 
@@ -28,36 +29,37 @@ int main() {
 	const Particle* pParticle = swarm.getParticle();
 
 	while (!quit) {
-
+		int elapsed = SDL_GetTicks();
 		//update the positions of the particles
 
-		swarm.update();
+		swarm.update(elapsed);
 
 		// draw the particles
-		screen.clear();
-		int elapsed = SDL_GetTicks();
 
-		unsigned char green = (1 + sin(elapsed * 0.0002)) * 128;
-		unsigned char red = (1 + sin(elapsed * 0.0004)) * 128;
-		unsigned char blue = (1 + sin(elapsed * 0.0006)) * 128;
+		//screen.clear();
 
-		/*
-		 for (int x = 0; x < screen.SCREEN_WIDTH;
-		 x++) {
-		 for (int y = 0;
-		 y < screen.SCREEN_HEIGHT; y++) {
-		 screen.setPixel(x, y, red, green, blue);
-		 }
-		 }*/
+
+
+		unsigned char green = (1 + sin(elapsed * 0.0002)) * 102+50;
+		unsigned char red = (1 + sin(elapsed * 0.0004)) * 102+50;
+		unsigned char blue = (1 + sin(elapsed * 0.0006)) * 102+50;
+
+
 
 		for (int i = 0; i < Swarm::NPARTICLES; i++) {
-			screen.setPixel((pParticle[i].m_x + 1) * Screen::SCREEN_WIDTH / 2,
-					(pParticle[i].m_y + 1) * Screen::SCREEN_HEIGHT / 2, red,
-					green, blue);
+			Particle particle = pParticle[i];
+			int x = (particle.m_x + 1) * Screen::SCREEN_WIDTH / 2;
+			int y = particle.m_y * Screen::SCREEN_WIDTH / 2+Screen::SCREEN_HEIGHT/2;
+			screen.setPixel(x, y, red, green, blue);
 		}
 
-		screen.update();
+		screen.boxBlur();
 
+		screen.update();
+		count++;
+
+
+		//cout << count << endl;
 
 		//check for messages/events
 		if (screen.processEvent() == false) {

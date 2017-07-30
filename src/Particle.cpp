@@ -6,30 +6,36 @@
  */
 
 #include "Particle.h"
+#include <math.h>
 
 namespace pierre {
 
-Particle::Particle() {
-	m_x = 2.0*rand() / RAND_MAX - 1.0;
-	m_y = 2.0*rand() / RAND_MAX  - 1.0;
+Particle::Particle() :
+	m_x(0), m_y(0) {
+	m_direction = 2.0 * M_PI * rand() / RAND_MAX;
+	m_speed = 0.05*rand()/RAND_MAX;
+	m_speed *= m_speed;
 }
 
 Particle::~Particle() {
 	// TODO Auto-generated destructor stub
 }
 
-void Particle::update(){
-	m_x += 0.001*(2.0*rand() / RAND_MAX  -1.0);
-	m_y += 0.001*(2.0*rand() / RAND_MAX  -1.0);
+void Particle::update(int interval) {
+	double xspeed=m_speed*cos(m_direction);
+	double yspeed= m_speed*sin(m_direction);
 
-	if (m_x>1||m_x<-1){
-		m_x = rand() / (double)RAND_MAX * 2.0 - 1.0;
+	m_x += xspeed*interval;
+	m_y += yspeed*interval;
+	m_direction+=0.0002*interval;
+
+	if (m_x<-1||m_x>1||m_y<-1||m_y>1){
+		m_x=0;
+		m_y=0;
+		m_direction = 2.0 * M_PI * rand() / RAND_MAX;
+		m_speed = 0.0001*rand()/RAND_MAX;
 	}
-	if (m_y>1||m_y<-1){
-		m_y = rand() / (double)RAND_MAX * 2.0 - 1.0;
-		}
 
 }
-
 
 } /* namespace pierre */

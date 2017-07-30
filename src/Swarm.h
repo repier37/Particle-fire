@@ -19,11 +19,12 @@ public:
 
 private:
 	Particle*  m_pParticles;
+	int lastTime;
 
 public:
 	Swarm();
 	const Particle* const getParticle();
-	void update();
+	void update(int timeLoop);
 	virtual ~Swarm();
 };
 

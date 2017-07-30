@@ -15,13 +15,15 @@ class Particle {
 public:
 	double m_x;
 	double m_y;
+	double m_speed;
+	double 	m_direction;
 
 
 public:
 	Particle();
 	int getX();
 	int getY();
-	void update();
+	void update(int interval);
 	virtual ~Particle();
 
 
